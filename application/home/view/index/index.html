@@ -19,6 +19,7 @@
       <th>评分</th>
       <th>发布时间</th>
       <th>简介</th>
+      <th>封面</th>
       <th>操作</th>
     </tr>
     {foreach name='book' id='v'}
@@ -42,6 +43,9 @@
         </td>
         <td>
           {$v['info']}
+        </td>
+        <td>
+          <img src="/static/uploads/{$v['img']}" alt="封面" width="200px">
         </td>
         <td>
           <a href="<?php echo url('home/index/view',['book_id'=>$v['book_id']])?>">打分</a>

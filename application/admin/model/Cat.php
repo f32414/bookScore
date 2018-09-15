@@ -23,7 +23,7 @@ class Cat extends Model
     return $data;
   }
   /**
-   * 检查是否有上传你重复书籍
+   * 检查是否有上传重复书籍
    * @param  string $book_name [书名]
    * @param  string $author    [作者]
    * @return bool            [是否重复上传]
@@ -31,7 +31,7 @@ class Cat extends Model
   public function checkBook($book_name, $author)
   {
     $data = Db::table('book')->where('author', '=', $author)->find();
-    if (!$data && $data['book_name'] != $book_name) {
+    if (!$data || $data['book_name'] != $book_name) {
       return TRUE;
     }
     return FALSE;

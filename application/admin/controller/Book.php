@@ -49,7 +49,7 @@ class Book extends Controller
       $this->error('请勿重复上架书籍！！','admin/book/index');
     }
     // 图片上传
-    $img = $img->move('../uploads');
+    $img = $img->move('./static/uploads');
     if ($img) {
       $img = $img->getSaveName();
     }
