@@ -5,6 +5,7 @@ namespace app\admin\controller;
 use think\Controller;
 use think\URL;
 use app\admin\model\Adminuser;
+use think\facade\Request;
 
 /**
  * 登陆模块
@@ -24,8 +25,8 @@ class Login extends Controller
   public function login()
   {
     $model = new Adminuser();
-    $username = isset($_POST['username'])?$_POST['username']:"";
-    $password = isset($_POST['password'])?$_POST['password']:"";
+    $username = Request::post('username');
+    $password = Request::post('password');
     $result = $model->checkAdmin($username,$password);
     if (!$result) {
       $this->error('用户名或密码错误！','admin/login/index');

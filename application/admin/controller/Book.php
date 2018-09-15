@@ -4,6 +4,7 @@ namespace app\admin\controller;
 
 use think\Controller;
 use app\admin\model\Cat;
+use think\facade\Request;
 
 /**
  * 书籍管理
@@ -30,12 +31,13 @@ class Book extends Controller
    */
   public function add()
   {
-    $book_name = isset($_POST['book_name'])?$_POST['book_name']:'';
-    $author = isset($_POST['author'])?$_POST['author']:'';
-    $info = isset($_POST['info'])?$_POST['info']:'';
-    $status = isset($_POST['status'])?$_POST['status']:'';
-    $cat = isset($_POST['cat'])?$_POST['cat']:'';
+    $book_name = Request::post('book_name');
+    $author = Request::post('author');
+    $info = Request::post('info');
+    $status = Request::post('status');
+    $cat = Request::post('cat');
     $img = request()->file('img');
+
     // 非空验证
     if (!$book_name || !$author || !$info || !$img) {
       $this->error('字段不能为空！','admin/book/index');
