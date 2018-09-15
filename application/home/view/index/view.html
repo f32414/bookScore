@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>评分</h1>
+  <hr>
+    <input type="number" max="10" min="1" step="1" id="score">
+    <button type="button" id="sub">立即打分</button>
+</body>
+</html>
+{js href="/static/js/jquery.js" /}
+<script type="text/javascript">
+  $('#sub').click(function(){
+    // 获取分值
+    var score = $('#score').val();
+    // 判断是否打分
+    if (!score) {
+      alert('请先写分数！');
+    // 判断分值是否合法
+    }else if(score > 10 || score < 1){
+      alert('分值必须在1到10之间！');
+    } else {
+      // 发送ajax请求
+      $.ajax({
+        url:"<?php echo url('home/index/score')?>",
+        type:'POST',
+        data:{
+          score:score,
+          book_id:{$book_id}
+        },
+        dataType:'text',
+        success: function(status){
+          if (status == 1) {
+            alert('评分成功！');
+            location.href="<?php echo url('home/index/index')?>";
+          } else {
+            alert('评分失败！');
+          }
+        },
+        error: function(){
+          alert('服务器烧坏了，请稍后再打分吧！');
+        }
+      });
+    }
+  });
+</script>

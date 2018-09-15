@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>分类排行榜</h1>
+  <hr>
+  <a href="<?php echo url('home/index/index')?>">返回</a>
+  {foreach name='cat' id='v'}
+    <h2>{$v['cat_name']}</h2>
+    <table border="1">
+      <tr>
+        <th>书名</th>
+        <th>作者</th>
+        <th>评分</th>
+        <th>发布时间</th>
+        <th>简介</th>
+      </tr>
+      {foreach name="$v['book']" id='vo'}
+        <tr>
+          <td>
+            {$vo['book_name']}
+          </td>
+          <td>
+            {$vo['author']}
+          </td>
+          <td>
+            {$vo['score']}
+          </td>
+          <td>
+            <!-- 时间展示优化 -->
+            <?php echo date('Y-m-d H:i:s', $vo['create_time']) ?>
+          </td>
+          <td>
+            {$vo['info']}
+          </td>
+        </tr>
+      {/foreach}
+    </table>
+  {/foreach}
+</body>
+</html>

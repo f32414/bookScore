@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>评分系统</h1>
+  <hr>
+  <a href="<?php echo url('home/index/cat')?>">分类排行榜</a>
+  <!-- 注意：button里不能有空格，否则会造成js判断错误 -->
+  评分：<button id="button">{if $order == 'desc'}△{else}▽{/if}</button>
+  <table border="1">
+    <tr>
+      <th>书名</th>
+      <th>作者</th>
+      <th>评分</th>
+      <th>发布时间</th>
+      <th>简介</th>
+      <th>操作</th>
+    </tr>
+    {foreach name='book' id='v'}
+      <tr>
+        <td>
+          {$v['book_name']}
+        </td>
+        <td>
+          {$v['author']}
+        </td>
+        <td>
+          {if $v['score'] == 0}
+            暂时还没有人给这本书打分哦！
+            {else}
+              {$v['score']}
+          {/if}
+        </td>
+        <td>
+          <!-- 时间展示优化 -->
+          <?php echo date('Y-m-d H:i:s', $v['create_time']) ?>
+        </td>
+        <td>
+          {$v['info']}
+        </td>
+        <td>
+          <a href="<?php echo url('home/index/view',['book_id'=>$v['book_id']])?>">打分</a>
+        </td>
+      </tr>
+    {/foreach}
+  </table>
+  <form action="<?php echo url('home/index/index')?>" method="get">
+    <input type="text" name="where" placeholder="查询信息">
+    <input type="submit" value="搜索">
+  </form>
+</body>
+</html>
+{load href="/static/js/jquery.js" /}
+<script type="text/javascript">
+  $('#button').click(function(){
+    // 倒序
+    if ($('#button').html() == '▽') {
+      location.href = "<?php echo url('home/index/index',['order'=>'desc'])?>";
+    }else{
+      location.href = "<?php echo url('home/index/index',['order'=>'asc'])?>";
+    }
+  });
+</script>
