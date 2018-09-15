@@ -10,8 +10,13 @@ use app\admin\model\Cat;
  */
 class Book extends Controller
 {
+  /**
+   * 添加页
+   * @return [type] [description]
+   */
   public function index()
   {
+    // 获取分类列表
     $model = new Cat();
     $cat = $model->getAll();
     if (!$cat) {

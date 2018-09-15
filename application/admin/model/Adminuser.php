@@ -13,7 +13,7 @@ class Adminuser extends Model
   public function checkAdmin($username, $password)
   {
     $data = Db::table('adminuser')->where('username', '=', $username)->find();
-    if (!$data && $data['password'] != $password) {
+    if (!$data || $data['password'] != $password) {
       return FALSE;
     }
     return $data['id'];
